@@ -33,18 +33,24 @@ function Navbar() {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow font-bold ">
-        <li><a>Home</a></li>
+          <Link to="/" className="text-black">Home</Link>
+          <Link to="/turf" className="text-black">Turfs</Link>
+          <Link to="/booking" className="text-black">My Bookings</Link>
+        {/* <li><a>Home</a></li>
        <li><a>Turfs</a></li>
-      <li><a>My Bookings</a></li> 
+      <li><a>My Bookings</a></li>  */}
       </ul>
     </div>
     <a className="font-bold cursor-pointer text-xl  md:ml-6">PlayGrid</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-      <li><a>Home</a></li>
+      <Link to="/" className="text-black"><li><a>Home</a></li></Link>
+          <Link to="/turf" className="text-black"><li><a>Turfs</a></li></Link>
+          <Link to="/booking" className="text-black"><li><a>My Bookings</a></li></Link>
+      {/* <li><a>Home</a></li>
        <li><a>Turfs</a></li>
-      <li><a>My Bookings</a></li>
+      <li><a>My Bookings</a></li> */}
     </ul>
   </div>
   <div className="navbar-end">
