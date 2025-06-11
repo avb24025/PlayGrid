@@ -2,9 +2,19 @@ import react from 'react';
 import { useEffect, useState ,useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
+import { AuthContext } from '../context/AuthContext';
 
 function Navbar() {
  const [sticky, setSticky] = useState(false);
+ const { user,logout } = useContext(AuthContext);
+  console.log("User in Navbar:", user);
+  // const [currentUser, setCurrentUser] = useState(user);
+
+  // useEffect(() => {
+  //   if (!loading && user) {
+  //     setCurrentUser(user); // Set user only after loading is complete and user exists
+  //   }
+  // }, [loading, user]);
 
  useEffect(() => {
     const handleScroll = () => {
@@ -36,9 +46,10 @@ function Navbar() {
           <Link to="/" className="text-black">Home</Link>
           <Link to="/turf" className="text-black">Turfs</Link>
           <Link to="/booking" className="text-black">My Bookings</Link>
-        {/* <li><a>Home</a></li>
-       <li><a>Turfs</a></li>
-      <li><a>My Bookings</a></li>  */}
+        {user && user.role === "owner"?(<Link to="/myturf" className="text-black ">My Turf</Link>):(<></>)}
+        {user && (user.role === "owner" || user.role === "user") && (
+    <li><Link to="/list" className="text-black">List Turf</Link></li>
+  )}
       </ul>
     </div>
     <a className="font-bold cursor-pointer text-xl  md:ml-6">PlayGrid</a>
@@ -48,17 +59,31 @@ function Navbar() {
       <Link to="/" className="text-black"><li><a>Home</a></li></Link>
           <Link to="/turf" className="text-black"><li><a>Turfs</a></li></Link>
           <Link to="/booking" className="text-black"><li><a>My Bookings</a></li></Link>
-      {/* <li><a>Home</a></li>
-       <li><a>Turfs</a></li>
-      <li><a>My Bookings</a></li> */}
+      {user && user.role=="owner"?(<Link to="/myturf" className="text-black "><li><a>My Turf</a></li></Link>):(<></>)}
+      {user && (user.role === "owner" || user.role === "user") && (
+    <li><Link to="/list" className="text-black">List Turf</Link></li>
+  )}
     </ul>
   </div>
   <div className="navbar-end">
-    <button className="btn btn-neutral bg-black text-white"
+    {user ? (
+              <button
+              onClick={() => {
+                logout();} 
+              }
+                className="btn btn-error bg-green-800 text-white hover:bg-green-900">Logout</button>
+          ) : (
+           <div>
+      <button className="btn btn-error bg-black text-white"
      onClick={()=>document.getElementById('my_modal_3').showModal()}
     >Login</button>
     <Login/>
+    </div>
+          )}
   </div>
+
+  
+          
 </div>
         </>
     )

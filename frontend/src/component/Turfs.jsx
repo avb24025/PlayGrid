@@ -187,8 +187,8 @@ function Trufs(){
     closingTime: "22:00"
   }
 ];
-   const [selectedTurf, setSelectedTurf] = useState(null);
-   const [searchQuery, setSearchQuery] = useState('');
+const [selectedTurf, setSelectedTurf] = useState(null);
+const [searchQuery, setSearchQuery] = useState('');
 const [selectedSport, setSelectedSport] = useState('');
 const [selectedCity, setSelectedCity] = useState('');
 const [selectedSizes, setSelectedSizes] = useState([]);

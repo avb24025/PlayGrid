@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
-// import { AuthContext } from '../context/AuthContext';
-// import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 import Navbar from './Navbar';
 
 function Signup() {
@@ -23,7 +23,7 @@ function Signup() {
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
-//   const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     fullname: '',
@@ -38,16 +38,16 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const res = await axios.post('https://book-mart-weld.vercel.app/api/user/signup', formData);
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/signup`, formData);
 
-    //   if (res.status === 200) {
-    //     login(res.data.token);
-    //     navigate('/');
-    //   }
-    // } catch (err) {
-    //   setError(err.response?.data?.message || 'An error occurred during signup');
-    // }
+      if (res.status === 200) {
+        login(res.data.token);
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred during signup');
+    }
   };
 
   useEffect(() => {

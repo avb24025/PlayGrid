@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
+import { AuthContext } from '../context/AuthContext';
 
 function Hero() {
+  const {user}=useContext(AuthContext);
   return (
     <div
   className=" bg-cover bg-center flex flex-col items-center pt-25 md:pt-30 text-center"
@@ -18,12 +20,15 @@ function Hero() {
         PlayGrid connects players with premium sports turfs across the city. Discover, book, and play — all in just a few clicks.
       </h1>
       {/* mb-40 md:mb-90 */}
-      <Link to='/'
+      {
+        user?(<a className='font-xl font-normal mb-10'>Welcome {user.fullname}</a>):( <Link to='/'
         className="btn btn-success mb-10 bg-black text-white hover:bg-green-900 transition duration-300 ease-in-out"
          onClick={()=>document.getElementById('my_modal_3').showModal()}
       >
         Get Started
-      </Link>
+      </Link>)
+      }
+      
       <Login/>
       <h1 className='text-xl  mb-10 md:mb-70 text-black md:w-1/2'>
         PlayGrid connects players with premium sports turfs across the city. Discover, book, and play — all in just a few clicks.

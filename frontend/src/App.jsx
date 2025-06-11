@@ -1,22 +1,43 @@
-import { useState } from 'react'
-import './App.css'
-import Home from './component/Home'
+ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './component/Home';
 import Signup from './component/Signup';
-import Turf from './component/Turf'
+import Turf from './component/Turf';
+import List from './component/List';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './component/ProtectedRoute';
 
 function App() {
-  
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/turf" element={<Turf/>}/>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/turf"
+            element={
+              <ProtectedRoute allowedRoles={['user', 'owner']}>
+                <Turf />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/list"
+            element={
+              <ProtectedRoute allowedRoles={['user', 'owner']}>
+                <List />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-    </BrowserRouter>
-  )
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

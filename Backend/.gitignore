@@ -1,0 +1,21 @@
+node_modules/
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+.env
+.env.*.local
+
+# MongoDB
+dump/
+*.mongodb
+
+# PM2 logs (optional)
+pids/
+*.pid
+
+# Misc
+.DS_Store

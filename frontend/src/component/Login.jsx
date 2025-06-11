@@ -1,7 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-// import { AuthContext } from '../context/AuthContext';
-// import axios from 'axios';
+import dotenv from 'dotenv';
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios'; 
+
+
+
 
 function Login() {
   const [error, setError] = useState('');
@@ -11,6 +15,8 @@ function Login() {
     password: '',
     role: 'user'  // default role
   });
+
+  const {login}=useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,22 +28,21 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const res = await axios.post('https://book-mart-weld.vercel.app/api/user/login', formData);
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/login`, formData);
+      if (res.status === 200) {
+        const token = res.data.token;
+        login(token);
 
-    //   if (res.status === 200) {
-    //     const token = res.data.token;
-    //     login(token);
+        // Close the modal
+        const modal = document.getElementById('my_modal_3');
+        if (modal) modal.close();
 
-    //     // Close the modal
-    //     const modal = document.getElementById('my_modal_3');
-    //     if (modal) modal.close();
-
-    //     navigate('/');
-    //   }
-    // } catch (err) {
-    //   setError(err.response?.data?.message || 'Invalid credentials');
-    // }
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Invalid credentials');
+    }
   };
 
   useEffect(() => {
