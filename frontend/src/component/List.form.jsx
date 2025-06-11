@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Listform = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    district: '',
-    state: '',
-    price: '',
-    size: '',
-    contact: '',
-    image: null,
-    description: '',
-  });
+   const { user } = useContext(AuthContext);
+   const [error, setError] = useState('');
+   const navigate=useNavigate();
+ const [formData, setFormData] = useState({
+  name: '',
+  location: '',
+  district: '',
+  state: '',
+  price: '',
+  size: '',
+  contact: '',
+  image: null,
+  ownerEmail: user ? user.email : '',
+  openingTime: '',
+  closingTime: '',
+  sport: '',
+});
+
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -22,41 +33,37 @@ const Listform = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
+  const data = new FormData();
 
-    try {
-      const res = await fetch('/api/turfs', {
-        method: 'POST',
-        body: data,
-      });
+  // Append each form field to the FormData object
+  Object.entries(formData).forEach(([key, value]) => {
+    data.append(key, value);
+  });
 
-      if (res.ok) {
-        alert('Turf listed successfully!');
-        setFormData({
-          name: '',
-          location: '',
-          district: '',
-          state: '',
-          price: '',
-          size: '',
-          contact: '',
-          image: null,
-          description: '',
-        });
-      } else {
-        alert('Failed to list turf');
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/turf/add`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Something went wrong');
+    );
+
+    if (res.status === 201) {
+      console.log('Turf listed successfully');
+      navigate('/turf'); // make sure navigate is from useNavigate
     }
-  };
+  } catch (err) {
+    console.error('Submission error:', err);
+    setError(err.response?.data?.message || 'An error occurred while listing turf');
+  }
+};
+
 
   return (
     <>
@@ -114,6 +121,40 @@ const Listform = () => {
           required
           className="w-full p-2 border rounded"
         />
+
+        <label className="block">Opening Time</label>
+<input
+  type="time"
+  name="openingTime"
+  value={formData.openingTime}
+  onChange={handleChange}
+  required
+  className="w-full p-2 border rounded"
+/>
+
+<label className="block">Closing Time</label>
+<input
+  type="time"
+  name="closingTime"
+  value={formData.closingTime}
+  onChange={handleChange}
+  required
+  className="w-full p-2 border rounded"
+/>
+<select
+  name="sport"
+  value={formData.sport}
+  onChange={handleChange}
+  required
+  className="w-full p-2 border rounded"
+>
+  <option value="">Select Sport Type</option>
+  <option value="football">Football</option>
+  <option value="cricket">Cricket</option>
+  <option value="badminton">Badminton</option>
+  <option value="multisport">Multi-sport</option>
+</select>
+
 
         <select
   name="size"

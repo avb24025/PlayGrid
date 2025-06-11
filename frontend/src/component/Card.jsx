@@ -18,7 +18,7 @@
         </h2>
         <p>{turf.openingTime}-{turf.closingTime}</p>
         <div className="card-actions sapce-around justify-between">
-        <div className="badge badge-outline">Rs.{turf.pricePerHour}</div>
+        <div className="badge badge-outline">Rs.{turf.price}</div>
         <div className="badge badge-outline">Book Now</div>
         </div>
     </div>

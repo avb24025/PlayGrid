@@ -70,7 +70,7 @@ function TurfModal({ turf, onBook }) {
             className="w-full h-40 object-cover my-2 rounded"
           />
           <p><strong>Size:</strong> {turf.size}</p>
-          <p><strong>Price:</strong> ₹{turf.pricePerHour}/hr</p>
+          <p><strong>Price:</strong> ₹{turf.price}/hr</p>
           <p><strong>Rating:</strong> ⭐ {turf.rating}</p>
           <p><strong>Open:</strong> {turf.openingTime} — <strong>Close:</strong> {turf.closingTime}</p>
 

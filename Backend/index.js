@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './route/User.route.js';
+import TurfRoute from './route/Turf.route.js';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user',userRoutes);
+app.use('/api/turf', TurfRoute);
 
 mongoose.connect(process.env.MONGO_URI, {   
     useNewUrlParser: true,
