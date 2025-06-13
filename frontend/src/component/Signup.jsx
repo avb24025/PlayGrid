@@ -132,7 +132,6 @@ function Signup() {
                 >
                   <option value="user" className='text-black'>User</option>
                   <option value="owner" className='text-black'>Owner</option>
-                  <option value="admin" className='text-black'>Admin</option>
                 </select>
               </div>
 

@@ -61,12 +61,7 @@ function Userlist() {
                 <h3 className="text-2xl font-semibold text-green-700 mb-4">
                     Reach local players — List your turf today!
                 </h3>
-                <button
-                    className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full text-lg font-medium transition duration-300"
-                    onClick={() => navigate('/signup')}
-                >
-                    Register as Owner
-                </button>
+                
             </div>
         </div>
     );

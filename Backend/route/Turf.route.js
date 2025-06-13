@@ -9,5 +9,6 @@ const router=express.Router();
 router.post('/add', upload.single('image'),trufcontroller.addTurf);
 router.get('/list', trufcontroller.listTurf);
 router.post('/checkslot', trufcontroller.checkSlotAvailability);
+router.get('/get-turfs', trufcontroller.getTurfsByEmail);
 
 export default router;

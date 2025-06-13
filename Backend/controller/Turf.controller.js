@@ -72,7 +72,30 @@ const checkSlotAvailability = async (req, res) => {
   }
 };
 
+const getTurfsByEmail=async(req,res)=>{
+  console.log("Inside getTurfsByEmail route");
+  const {email}=req.query;
+  console.log("Fetching turfs for email:", email);
+  
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' });
+  }
+  try{
+    const turfs = await Turf.find({ ownerEmail: email });
+    res.status(200).json({
+    message: turfs.length === 0
+      ? 'No turfs found for this email'
+      : 'Turfs fetched successfully',
+    turfs,
+  });
+  }
+  catch(error){
+    console.error('Error fetching turfs by email:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 export default {
-    addTurf,listTurf,checkSlotAvailability,
+    addTurf,listTurf,checkSlotAvailability,getTurfsByEmail,
 };

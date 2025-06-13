@@ -2,6 +2,15 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import { AuthContext } from '../context/AuthContext';
+import { FaQuestionCircle } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaCalendarCheck,
+  FaUserShield,
+  FaCreditCard,
+  FaImages,
+  FaBell
+} from 'react-icons/fa';
 
 function Hero() {
   const {user}=useContext(AuthContext);
@@ -27,10 +36,12 @@ function Hero() {
     backgroundAttachment: "fixed"
   }}
 >
-      <h1 className='text-5xl font-bold mb-8 text-black'>
-        Seamless Turf Booking. Anytime. Anywhere.
+      <h1 className='text-5xl md:text-6xl font-bold mb-8 text-black md:pt-23'>
+        Seamless Turf Booking.
+        <br/>
+         <span className='text-green-600'>Anytime. Anywhere.</span>
       </h1>
-      <h1 className='text-2xl font-bold mb-8 md:mb-8 text-black md:w-1/2'>
+      <h1 className='text-2xl font-bold mb-8 md:mb-8 text-black md:w-1/2 '>
         PlayGrid connects players with premium sports turfs across the city. Discover, book, and play — all in just a few clicks.
       </h1>
       {/* mb-40 md:mb-90 */}
@@ -38,7 +49,8 @@ function Hero() {
         user?(<h2 className="text-2xl font-semibold text-gray-800 mb-6">
   Welcome, <span className="text-green-600">{user.fullname}</span> 👋
 </h2>):( <Link to='/'
-        className="btn btn-success mb-10 bg-black text-white hover:bg-green-900 transition duration-300 ease-in-out"
+        // className="btn btn-success mb-10 bg-black text-white hover:bg-green-900 transition duration-300 ease-in-out"
+         className="btn btn-success mb-10 bg-black text-white hover:bg-green-900 transition duration-300 ease-in-out animate-float"
          onClick={()=>document.getElementById('my_modal_3').showModal()}
       >
         Get Started
@@ -46,11 +58,15 @@ function Hero() {
       }
       
       <Login/>
-      <h1 className='text-xl  mb-10 md:mb-10 text-black md:w-1/2'>
+      <h1 className='text-xl  mb-10 md:mb-10 text-black md:w-1/2 md:pb-22'>
         PlayGrid connects players with premium sports turfs across the city. Discover, book, and play — all in just a few clicks.
       </h1>
 
+      <div className="text-left hidden md:block">
+  <h1 className="text-4xl font-bold mb-4">Available Sports</h1>
+</div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
+        
   {/* Football */}
   <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out">
     <img
@@ -89,57 +105,100 @@ function Hero() {
       </div>
 
      {/* feature component */}
-       <div className=" py-12 px-6">
-  <h2 className="text-3xl font-bold text-center mb-10">Why Choose PlayGrid?</h2>
+       <div className="py-20 px-6 ">
+      <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
+        Why Choose <span className="text-green-600">PlayGrid</span>?
+      </h2>
 
-  <div className="grid gap-6 pl-10 pr-10 md:grid-cols-2 lg:grid-cols-3">
-    {/* Feature 1 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg transition hidden md:block">
-      <h3 className="text-xl font-semibold mb-2">📍 Location-Based Search</h3>
-      <p className="text-white">Find nearby turfs instantly  filters by sport, time, and location.</p>
-    </div>
+      <div className="grid gap-8 px-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* Feature 1 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaMapMarkerAlt className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Location-Based Search</h3>
+          <p className="text-gray-600">Find nearby turfs instantly with filters for sport, time, and location.</p>
+        </div>
 
-    {/* Feature 2 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg  transition hidden md:block">
-      <h3 className="text-xl font-semibold mb-2">📅 Real-Time Booking</h3>
-      <p className="text-white">Book available time slots in real-time without any phone calls or delays.</p>
-    </div>
+        {/* Feature 2 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaCalendarCheck className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Real-Time Booking</h3>
+          <p className="text-gray-600">Book available time slots without phone calls or delays.</p>
+        </div>
 
-    {/* Feature 3 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg transition">
-      <h3 className="text-xl font-semibold mb-2">👥 Role-Based Dashboard</h3>
-      <p className="text-white">Different dashboards for users, turf owners, and admins for better control.</p>
-    </div>
+        {/* Feature 3 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaUserShield className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Role-Based Dashboard</h3>
+          <p className="text-gray-600">Different dashboards for users, turf owners, and admins.</p>
+        </div>
 
-    {/* Feature 4 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg transition">
-      <h3 className="text-xl font-semibold mb-2">💳 Secure Online Payments</h3>
-      <p className="text-white">Pay using Razorpay, Cashfree, and more — fast, secure, and reliable.</p>
-    </div>
+        {/* Feature 4 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaCreditCard className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Secure Online Payments</h3>
+          <p className="text-gray-600">Pay securely using Razorpay, Cashfree, and other gateways.</p>
+        </div>
 
-    {/* Feature 5 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg transition">
-      <h3 className="text-xl font-semibold mb-2">📷 Turf Gallery & Reviews</h3>
-      <p className="text-white">View photos, read ratings, and choose the perfect turf for your match.</p>
-    </div>
+        {/* Feature 5 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaImages className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Turf Gallery & Reviews</h3>
+          <p className="text-gray-600">View photos, read ratings, and select the best turf.</p>
+        </div>
 
-    {/* Feature 6 */}
-    <div className="bg-black text-white p-6  shadow hover:shadow-lg transition">
-      <h3 className="text-xl font-semibold mb-2">🔔 Smart Notifications</h3>
-      <p className="text-white">Get reminders and alerts for upcoming bookings and exclusive deals.</p>
+        {/* Feature 6 */}
+        <div className="bg-white hover:bg-green-50 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300">
+          <FaBell className="text-3xl text-green-600 mb-4" />
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Smart Notifications</h3>
+          <p className="text-gray-600">Get reminders for bookings and exclusive offers.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
       {/* <Features/> */}
 
-   <div className='mt-20 flex direction-col w-full'>
-    <div className='pl-10 w-1/2 bg-gray-100'>
-    {/* <h1 className='text-2xl font-normal'>How To Add Turf</h1> */}
-    
+      <div className="w-full py-20  flex justify-center">
+      <div className="w-11/12 md:w-3/5 bg-white rounded-xl shadow-lg p-6">
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+          <FaQuestionCircle className="inline mr-2 text-green-600" />
+          Frequently Asked Questions
+        </h2>
 
+        <div className="join join-vertical space-y-4">
+          {/* FAQ 1 */}
+          <div className="collapse collapse-arrow join-item border border-gray-200 rounded-lg shadow hover:shadow-md transition duration-300">
+            <input type="radio" name="faq" defaultChecked />
+            <div className="collapse-title font-medium text-lg text-gray-800">
+              How do I create an account?
+            </div>
+            <div className="collapse-content text-sm text-gray-600">
+              Click the "Sign Up" button in the top right corner and follow the registration process.
+            </div>
+          </div>
+
+          {/* FAQ 2 */}
+          <div className="collapse collapse-arrow join-item border border-gray-200 rounded-lg shadow hover:shadow-md transition duration-300">
+            <input type="radio" name="faq" />
+            <div className="collapse-title font-medium text-lg text-gray-800">
+              I forgot my password. What should I do?
+            </div>
+            <div className="collapse-content text-sm text-gray-600">
+              Click on "Forgot Password" on the login page and follow the instructions sent to your email.
+            </div>
+          </div>
+
+          {/* FAQ 3 */}
+          <div className="collapse collapse-arrow join-item border border-gray-200 rounded-lg shadow hover:shadow-md transition duration-300">
+            <input type="radio" name="faq" />
+            <div className="collapse-title font-medium text-lg text-gray-800">
+              How do I update my profile information?
+            </div>
+            <div className="collapse-content text-sm text-gray-600">
+              Go to "My Account" settings and select "Edit Profile" to make changes.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className='pr-10 w-1/2'>right</div>
-   </div>
       
     </div>
     </>

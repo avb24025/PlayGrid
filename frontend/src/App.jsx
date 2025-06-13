@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './component/Home';
 import Signup from './component/Signup';
 import Turf from './component/Turf';
+import Myturf from './component/Myturf';
 import List from './component/List';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './component/ProtectedRoute';
@@ -40,6 +41,15 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['user', 'owner']}>
                 <Bookings/>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/myturf"
+            element={
+              <ProtectedRoute allowedRoles={['owner']}>
+                <Myturf />
               </ProtectedRoute>
             }
           />

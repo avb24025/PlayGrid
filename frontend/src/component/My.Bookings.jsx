@@ -2,6 +2,7 @@ import react from 'react';
 import { useState, useEffect, useContext } from 'react';
 import Bookingcard from './Booking.card';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 
@@ -12,6 +13,7 @@ function MyBookings() {
     const userEmail = user?.email || '';
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBookings= async () => {
@@ -48,7 +50,8 @@ function MyBookings() {
         return (
             <div className='flex flex-col items-center justify-center h-screen'>
                 <h1 className='text-3xl font-bold text-black mb-5'>No Bookings Found</h1>
-                <p className='text-xl text-green-600 '>You have not booked any slots yet.</p>
+                <p className='text-xl text-green-600 mb-4'>You have not booked any slots yet.</p>
+                <button className='bg-green-600 btn btn-success text-white' onClick={()=>{navigate('/turf')}}>Start Booking</button>
             </div>
         );
     }

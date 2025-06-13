@@ -3,6 +3,7 @@ import { useEffect, useState ,useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import { AuthContext } from '../context/AuthContext';
+import { FaLinkedinIn } from "react-icons/fa";
 
 function Navbar() {
  const [sticky, setSticky] = useState(false);
@@ -52,7 +53,7 @@ function Navbar() {
   )}
       </ul>
     </div>
-    <a className="font-bold cursor-pointer text-xl  md:ml-6">PlayGrid</a>
+    <a className="font-bold cursor-pointer text-2xl  md:ml-6">PlayGrid</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
