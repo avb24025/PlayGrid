@@ -6,6 +6,7 @@ import Turf from './component/Turf';
 import List from './component/List';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './component/ProtectedRoute';
+import Bookings from './component/Bookings';
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['user', 'owner']}>
                 <List />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/booking"
+            element={
+              <ProtectedRoute allowedRoles={['user', 'owner']}>
+                <Bookings/>
               </ProtectedRoute>
             }
           />

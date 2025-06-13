@@ -43,6 +43,7 @@ const verifyPayment = async (req, res) => {
         turfName: bookingDetails.turfName,
         ownerEmail: bookingDetails.ownerEmail,
         userEmail: bookingDetails.userEmail,
+        contact:bookingDetails.contact,
         bookedSlot: {
             date: bookingDetails.date,
             startTime: bookingDetails.startTime,
@@ -72,8 +73,26 @@ const verifyPayment = async (req, res) => {
   }
 };
 
+const mybookings= async (req, res) => {
+  console.log('user email:', req.query.email);
+  const { email } = req.query; // Get email from query parameters
+
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' });
+  }
+
+  try {
+    const bookings = await Booking.find({ userEmail: email }).sort({ createdAt: -1 });
+    console.log('Bookings found:', bookings);
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching bookings', error });
+  }
+};
+
+
 export default{
-    createRazorpayOrder,verifyPayment
+    createRazorpayOrder,verifyPayment,mybookings
 }
 
 

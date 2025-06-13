@@ -8,6 +8,8 @@ function TurfModal({ turf, onBook }) {
   const [endTime, setEndTime] = useState('');
   const {user}= useContext(AuthContext);
   const userEmail = user?.email || '';
+
+  
  
   if (!turf) return null;
 
@@ -134,24 +136,36 @@ function TurfModal({ turf, onBook }) {
     return;
   }
 
+  console.log("Sending to /checkslot:", {
+  bookingDate,
+  startTime,
+  endTime,
+  turfId: turf?._id,
+});
+
   // ⏳ 1. Check if slot is available
   try {
-    const slotCheckRes = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/turf/checkslot`, {
-      bookingDate,
-      startTime,
-      endTime,
-      turfId: turf._id
-    });
+  const slotCheckRes = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/turf/checkslot`, {
+    bookingDate,
+    startTime,
+    endTime,
+    turfId: turf._id
+  });
 
-    if (slotCheckRes.status !== 200) {
-      alert('This slot is already booked. Please choose a different time.');
-      return;
-    }
-  } catch (error) {
+  // Slot available
+  console.log('Slot is available:', slotCheckRes.data.message);
+
+} catch (error) {
+  // ⛔ Slot is not available or request failed
+  if (error.response && error.response.status === 400) {
+    alert(error.response.data.message || 'Slot is already booked');
+  } else {
     console.error('Slot check failed:', error);
     alert('Error checking slot availability. Try again later.');
-    return;
   }
+  return;
+}
+
 
   // 💰 2. Create Razorpay Order
   let razorpayOrder;
@@ -187,6 +201,7 @@ function TurfModal({ turf, onBook }) {
             endTime,
             totalHours,
             totalPrice,
+            contact: turf.contact
           }
         });
 
@@ -218,8 +233,8 @@ function TurfModal({ turf, onBook }) {
           />
           <p><strong>Size:</strong> {turf.size}</p>
           <p><strong>Price:</strong> ₹{turf.price}/hr</p>
-          <p><strong>Rating:</strong> ⭐ {turf.rating}</p>
           <p><strong>Open:</strong> {turf.openingTime} — <strong>Close:</strong> {turf.closingTime}</p>
+          <p><strong>Contact No.:</strong>{turf.contact} </p>
 
           <div className="my-4">
             <label className="block mb-1 font-medium">Select Date</label>

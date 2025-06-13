@@ -9,6 +9,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  contact:{ type: String, required: true },
   userEmail: {
     type: String,
     required: true,

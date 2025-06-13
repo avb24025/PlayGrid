@@ -42,32 +42,36 @@ const listTurf = async (req, res) => {
     }
 }
 
-const checkSlotAvailability =async(req, res) => {
-    const {bookingDate, startTime, endTime, turfId} = req.body;
-    try {
-        const turf = await Turf.findById(turfId);
-        if (!turf) {
-            return res.status(404).json({ message: 'Turf not found' });
-        }
+const checkSlotAvailability = async (req, res) => {
+  const { bookingDate, startTime, endTime, turfId } = req.body;
+  console.log("Slot check payload:", req.body);
 
-        // Check if the requested slot is already booked
-        const isBooked = turf.bookedSlots.some(slot => 
-            slot.date === bookingDate && 
-            ((slot.startTime <= startTime && slot.endTime > startTime) || 
-             (slot.startTime < endTime && slot.endTime >= endTime))
-        );
+  if (!bookingDate || !startTime || !endTime || !turfId) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-        if (isBooked) {
-            return res.status(400).json({ valid: false, message: 'This slot is already booked.' });
-        }
-
-        res.status(200).json({ valid: true, message: 'Slot is available.' });
-    } catch (error) {
-        console.error('Error checking slot availability:', error);
-        res.status(500).json({ message: 'Internal server error' });
+  try {
+    const turf = await Turf.findById(turfId);
+    if (!turf) {
+      return res.status(404).json({ message: 'Turf not found' });
     }
 
-}
+    const isBooked = turf.bookedSlots.some(slot =>
+      slot.date === bookingDate &&
+      !(endTime <= slot.startTime || startTime >= slot.endTime)
+    );
+
+    if (isBooked) {
+      return res.status(400).json({ valid: false, message: 'This slot is already booked.' });
+    }
+
+    res.status(200).json({ valid: true, message: 'Slot is available.' });
+  } catch (error) {
+    console.error('Error checking slot availability:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 export default {
     addTurf,listTurf,checkSlotAvailability,

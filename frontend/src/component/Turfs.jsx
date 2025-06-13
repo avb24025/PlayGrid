@@ -6,6 +6,7 @@ import { use } from 'react';
 
 
 function Trufs(){
+  const [loading, setLoading] = useState(true);
   const [turfs, setTurfs] = useState([]);
   useEffect(() => {
     const fetchTurfs = async () => {
@@ -20,194 +21,17 @@ function Trufs(){
         console.error('Error fetching turfs:', error);
         setTurfs([]); // Set to empty array on error
       }
+      finally{
+       setLoading(false);
+      }
     };
     fetchTurfs();
+    
   }, []);
 
 
 
-//     const turfs = [
-//   {
-//     name: "Greenfield Sports Arena",
-//     size: "5-a-side",
-//     pricePerHour: 800,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.5,
-//     openingTime: "06:00",
-//     closingTime: "22:00"
-//   },
-//   {
-//     name: "Champion Turf Zone",
-//     size: "7-a-side",
-//     pricePerHour: 1200,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.2,
-//     openingTime: "05:30",
-//     closingTime: "23:00"
-//   },
-//   {
-//     name: "Urban Kick Arena",
-//     size: "6-a-side",
-//     pricePerHour: 1000,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.7,
-//     openingTime: "07:00",
-//     closingTime: "21:00"
-//   },
-//   {
-//     name: "PlayZone Xtreme",
-//     size: "Full",
-//     pricePerHour: 1500,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.3,
-//     openingTime: "06:30",
-//     closingTime: "22:30"
-//   },
-//   {
-//     name: "Stadium Five",
-//     size: "5-a-side",
-//     pricePerHour: 750,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.0,
-//     openingTime: "06:00",
-//     closingTime: "20:00"
-//   },
-//   {
-//     name: "Turf Legends",
-//     size: "7-a-side",
-//     pricePerHour: 1100,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.4,
-//     openingTime: "05:00",
-//     closingTime: "23:00"
-//   },
-//   {
-//     name: "MetroPlay Grounds",
-//     size: "6-a-side",
-//     pricePerHour: 900,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.1,
-//     openingTime: "07:30",
-//     closingTime: "21:30"
-//   },
-//   {
-//     name: "Elite Turf Hub",
-//     size: "5-a-side",
-//     pricePerHour: 850,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.6,
-//     openingTime: "06:00",
-//     closingTime: "22:00"
-//   },
-//   {
-//     name: "Pro Arena",
-//     size: "Full",
-//     pricePerHour: 1600,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.8,
-//     openingTime: "06:00",
-//     closingTime: "23:00"
-//   },
-//   {
-//     name: "Kickoff Central",
-//     size: "6-a-side",
-//     pricePerHour: 950,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.2,
-//     openingTime: "06:00",
-//     closingTime: "21:00"
-//   },
-//   {
-//     name: "Victory Grounds",
-//     size: "7-a-side",
-//     pricePerHour: 1050,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.3,
-//     openingTime: "05:30",
-//     closingTime: "22:30"
-//   },
-//   {
-//     name: "GoalMasters",
-//     size: "5-a-side",
-//     pricePerHour: 780,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.0,
-//     openingTime: "06:00",
-//     closingTime: "20:00"
-//   },
-//   {
-//     name: "The Arena Pro",
-//     size: "Full",
-//     pricePerHour: 1550,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.9,
-//     openingTime: "06:00",
-//     closingTime: "23:00"
-//   },
-//   {
-//     name: "Sports Bay",
-//     size: "6-a-side",
-//     pricePerHour: 990,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.5,
-//     openingTime: "07:00",
-//     closingTime: "21:00"
-//   },
-//   {
-//     name: "Turf Titans",
-//     size: "7-a-side",
-//     pricePerHour: 1150,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.4,
-//     openingTime: "06:00",
-//     closingTime: "22:00"
-//   },
-//   {
-//     name: "Rapid Goal Arena",
-//     size: "5-a-side",
-//     pricePerHour: 800,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.1,
-//     openingTime: "06:30",
-//     closingTime: "21:30"
-//   },
-//   {
-//     name: "NextPlay Field",
-//     size: "6-a-side",
-//     pricePerHour: 950,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.3,
-//     openingTime: "07:00",
-//     closingTime: "22:00"
-//   },
-//   {
-//     name: "PrimeKick Arena",
-//     size: "Full",
-//     pricePerHour: 1450,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.6,
-//     openingTime: "05:30",
-//     closingTime: "22:30"
-//   },
-//   {
-//     name: "FastPlay Ground",
-//     size: "7-a-side",
-//     pricePerHour: 1080,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.2,
-//     openingTime: "06:00",
-//     closingTime: "21:00"
-//   },
-//   {
-//     name: "Legends Arena",
-//     size: "5-a-side",
-//     pricePerHour: 880,
-//     image: "https://imgs.search.brave.com/rq23BhqK9IeS2Yz3KLJFIBw38Xc8BtlTm8VbFUhZzsk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/MjY2NTQxL3Bob3Rv/L2Nsb3NlLXVwLW9m/LWEtYmFsbC1vbi1h/LWZvb3RiYWxsLXBp/dGNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz12VzJ4cXhL/U0JEdUw5N211V3Mx/VGY5YVdBRWFxRkhz/aFdnQk1WQTZoMi1V/PQ",
-//     rating: 4.5,
-//     openingTime: "06:00",
-//     closingTime: "22:00"
-//   }
-// ];
+
 const [selectedTurf, setSelectedTurf] = useState(null);
 const [searchQuery, setSearchQuery] = useState('');
 const [selectedSport, setSelectedSport] = useState('');
@@ -244,6 +68,14 @@ const [selectedSizes, setSelectedSizes] = useState([]);
   return matchesSearch && matchesCity && matchesSport && matchesSize;
 });
 
+  
+    if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-bars loading-xl text-green-600"></span>
+      </div>
+    );
+  }
 
     return(
         <>
