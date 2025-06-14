@@ -34,22 +34,34 @@ function Trufs() {
   };
 
   const filteredTurfs = turfs.filter((turf) => {
-    const matchesSearch =
-      (turf.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-      (turf.city?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-      (turf.sport?.toLowerCase() || '').includes(searchQuery.toLowerCase());
+    // Convert search query to lowercase for case-insensitive comparison
+    const query = searchQuery.toLowerCase().trim();
+    
+    // Search through multiple fields
+    const matchesSearch = 
+      turf.name?.toLowerCase().includes(query) ||
+      turf.location?.toLowerCase().includes(query) ||
+      turf.district?.toLowerCase().includes(query) ||
+      turf.sport?.toLowerCase().includes(query);
 
-    const matchesCity =
-      selectedCity === '' || turf.city?.toLowerCase() === selectedCity.toLowerCase();
+    // Check if sport matches (if a sport is selected)
+    const matchesSport = !selectedSport || 
+      turf.sport?.toLowerCase() === selectedSport.toLowerCase();
 
-    const matchesSport =
-      selectedSport === '' || turf.sport?.toLowerCase() === selectedSport.toLowerCase();
+    // Check if city matches (if a city is selected)
+    const matchesCity = !selectedCity || 
+      turf.district?.toLowerCase() === selectedCity.toLowerCase();
 
-    const matchesSize =
-      selectedSizes.length === 0 || selectedSizes.includes(turf.size);
+    // Check if size matches (if any sizes are selected)
+    const matchesSize = selectedSizes.length === 0 || 
+      (turf.size && selectedSizes.includes(turf.size));
 
-    return matchesSearch && matchesCity && matchesSport && matchesSize;
+    return matchesSearch && matchesSport && matchesCity && matchesSize;
   });
+
+  // Update the city select options to use district from your data
+  const uniqueCities = [...new Set(turfs.map(turf => turf.district))].filter(Boolean);
+  const uniqueSports = [...new Set(turfs.map(turf => turf.sport))].filter(Boolean);
 
   if (loading) {
     return (
@@ -83,18 +95,37 @@ function Trufs() {
 
           <h2 className="text-xl font-bold mb-4 ml-1">Filters</h2>
 
+          {/* City Filter */}
+          <div className="mb-6">
+            <label className="block mb-2 text-sm font-semibold">City</label>
+            <select
+              className="w-full p-2 bg-gray-700 text-white rounded"
+              onChange={(e) => setSelectedCity(e.target.value)}
+              value={selectedCity}
+            >
+              <option value="">All Cities</option>
+              {uniqueCities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Sport Filter */}
           <div className="mb-6">
             <label className="block mb-2 text-sm font-semibold">Sport</label>
             <select
               className="w-full p-2 bg-gray-700 text-white rounded"
               onChange={(e) => setSelectedSport(e.target.value)}
+              value={selectedSport}
             >
               <option value="">All Sports</option>
-              <option value="Football">Football</option>
-              <option value="Cricket">Cricket</option>
-              <option value="Badminton">Badminton</option>
-              <option value="Multi-sport">Multi-sport</option>
+              {uniqueSports.map((sport) => (
+                <option key={sport} value={sport}>
+                  {sport}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -123,21 +154,6 @@ function Trufs() {
               ))}
             </div>
           </div>
-
-          {/* City Filter */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-semibold">City</label>
-            <select
-              className="w-full p-2 bg-gray-700 text-white rounded"
-              onChange={(e) => setSelectedCity(e.target.value)}
-            >
-              <option value="">All Cities</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Pune">Pune</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Bangalore">Bangalore</option>
-            </select>
-          </div>
         </div>
 
         {/* Main Content */}
@@ -147,7 +163,7 @@ function Trufs() {
           </div>
 
           {/* Mobile Search */}
-          <div className="md:hidden">
+          <div className="md:hidden item-center justify-center">
             <label className="input border-1 rounded-full mt-3 mb-1">
               <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">

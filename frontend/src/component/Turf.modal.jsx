@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function TurfModal({ turf, onBook }) {
   const [bookingDate, setBookingDate] = useState('');
@@ -125,12 +126,12 @@ function TurfModal({ turf, onBook }) {
 
   const handleBooking = async () => {
   if (!bookingDate || !startTime || !endTime) {
-    alert('Please fill in all fields');
+   toast.error('Please fill in all fields');
     return;
   }
 
   if (!isValidBookingTime()) {
-    alert(`Booking time must be between ${turf.openingTime} and ${turf.closingTime}, and end time must be after start time.`);
+    toast.error(`Booking time must be between ${turf.openingTime} and ${turf.closingTime}, and end time must be after start time.`);
     return;
   }
 
@@ -161,7 +162,8 @@ function TurfModal({ turf, onBook }) {
 } catch (error) {
   // ⛔ Slot is not available or request failed
   if (error.response && error.response.status === 400) {
-    alert(error.response.data.message || 'Slot is already booked');
+     toast.error(error.response.data.message || 'Slot is already booked');
+    // alert(error.response.data.message || 'Slot is already booked');
   } else {
     console.error('Slot check failed:', error);
     alert('Error checking slot availability. Try again later.');

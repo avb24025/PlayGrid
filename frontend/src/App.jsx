@@ -8,11 +8,13 @@ import List from './component/List';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './component/ProtectedRoute';
 import Bookings from './component/Bookings';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+         <Toaster position="bottom-right" reverseOrder={false} />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />

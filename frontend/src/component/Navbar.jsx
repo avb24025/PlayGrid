@@ -49,7 +49,7 @@ function Navbar() {
           <Link to="/booking" className="text-black">My Bookings</Link>
         {user && user.role === "owner"?(<Link to="/myturf" className="text-black ">My Turf</Link>):(<></>)}
         {user && (user.role === "owner" || user.role === "user") && (
-    <li><Link to="/list" className="text-black">List Turf</Link></li>
+     <Link to="/list" className="text-black">List Turf</Link>
   )}
       </ul>
     </div>
@@ -62,7 +62,7 @@ function Navbar() {
           <Link to="/booking" className="text-black"><li><a>My Bookings</a></li></Link>
       {user && user.role=="owner"?(<Link to="/myturf" className="text-black "><li><a>My Turf</a></li></Link>):(<></>)}
       {user && (user.role === "owner" || user.role === "user") && (
-    <li><Link to="/list" className="text-black">List Turf</Link></li>
+    <Link to="/list" className="text-black"><li><a>List Turf</a></li></Link>
   )}
     </ul>
   </div>
