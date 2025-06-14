@@ -1,6 +1,8 @@
-import React, { useState ,useContext} from 'react';
+import React, {useEffect,useState ,useContext} from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 function TurfModal({ turf, onBook }) {
   const [bookingDate, setBookingDate] = useState('');
@@ -8,9 +10,10 @@ function TurfModal({ turf, onBook }) {
   const [endTime, setEndTime] = useState('');
   const {user}= useContext(AuthContext);
   const userEmail = user?.email || '';
+  const [msg , setMsg] = useState('');
+  const Navigate = useNavigate();
 
-  
- 
+   
   if (!turf) return null;
 
   const toMinutes = (timeStr) => {
@@ -204,8 +207,7 @@ function TurfModal({ turf, onBook }) {
             contact: turf.contact
           }
         });
-
-        alert(`Booking confirmed for ${turf.name} on ${bookingDate} from ${startTime} to ${endTime}. Total: ₹${totalPrice}`);
+         Navigate('/booking');
         onBook?.(); // optional callback
       } catch (error) {
         console.error('Payment verified but booking failed:', error);
@@ -216,12 +218,18 @@ function TurfModal({ turf, onBook }) {
     theme: { color: "#3399cc" },
   };
 
+
+
+
+  document.getElementById('my_modal_2').close();
+
   const rzp = new window.Razorpay(options);
   rzp.open();
 };
  
 
   return (
+    <>
     <div>
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box bg-white text-black">
@@ -235,6 +243,7 @@ function TurfModal({ turf, onBook }) {
           <p><strong>Price:</strong> ₹{turf.price}/hr</p>
           <p><strong>Open:</strong> {turf.openingTime} — <strong>Close:</strong> {turf.closingTime}</p>
           <p><strong>Contact No.:</strong>{turf.contact} </p>
+          <p><strong>Location:</strong>{turf.location} </p>
 
           <div className="my-4">
             <label className="block mb-1 font-medium">Select Date</label>
@@ -277,6 +286,7 @@ function TurfModal({ turf, onBook }) {
         </div>
       </dialog>
     </div>
+    </>
   );
 }
 

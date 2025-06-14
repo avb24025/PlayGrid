@@ -82,6 +82,7 @@ const getTurfsByEmail=async(req,res)=>{
   }
   try{
     const turfs = await Turf.find({ ownerEmail: email });
+    console.log("Turfs found:", turfs);
     res.status(200).json({
     message: turfs.length === 0
       ? 'No turfs found for this email'
