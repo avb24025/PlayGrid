@@ -46,10 +46,7 @@ PlayGrid is a web-based turf management and booking system built using the PERN 
 
 ## 📩 Contact
 
-For queries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/your-profile/) or raise an issue.
+For queries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/aditya-bhosale-a53481259/) or raise an issue.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
