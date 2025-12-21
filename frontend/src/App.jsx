@@ -1,7 +1,8 @@
  import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './component/Home';
 import Signup from './component/Signup';
+import PlayGridAssistant from './component/PlayGridAssistant';
 import Turf from './component/Turf';
 import Myturf from './component/Myturf';
 import List from './component/List';
@@ -10,11 +11,11 @@ import ProtectedRoute from './component/ProtectedRoute';
 import Bookings from './component/Bookings';
 import { Toaster } from 'react-hot-toast';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   return (
-    <AuthProvider>
-      <BrowserRouter>
-         <Toaster position="bottom-right" reverseOrder={false} />
+    <>
+      <Toaster position="bottom-right" reverseOrder={false} />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
@@ -56,9 +57,17 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
+      {location.pathname === "/turf" && <PlayGridAssistant />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
     </AuthProvider>
   );
 }
 
-export default App;
+export default App; 

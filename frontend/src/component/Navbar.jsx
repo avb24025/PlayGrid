@@ -57,13 +57,13 @@ function Navbar() {
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-      <Link to="/" className="text-black"><li><a>Home</a></li></Link>
-          <Link to="/turf" className="text-black"><li><a>Turfs</a></li></Link>
-          <Link to="/booking" className="text-black"><li><a>My Bookings</a></li></Link>
-      {user && user.role=="owner"?(<Link to="/myturf" className="text-black "><li><a>My Turf</a></li></Link>):(<></>)}
+      <li><Link to="/" className="text-black">Home</Link></li>
+      <li><Link to="/turf" className="text-black">Turfs</Link></li>
+      <li><Link to="/booking" className="text-black">My Bookings</Link></li>
+      {user && user.role=="owner"?(<li><Link to="/myturf" className="text-black">My Turf</Link></li>):(<></>)}
       {user && (user.role === "owner" || user.role === "user") && (
-    <Link to="/list" className="text-black"><li><a>List Turf</a></li></Link>
-  )}
+        <li><Link to="/list" className="text-black">List Turf</Link></li>
+      )}
     </ul>
   </div>
   <div className="navbar-end">
