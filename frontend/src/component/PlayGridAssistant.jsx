@@ -18,7 +18,7 @@ export default function PlayGridAssistant() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:4000/api/agent/chat", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/agent/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
