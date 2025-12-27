@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import userRoutes from './route/User.route.js';
 import TurfRoute from './route/Turf.route.js';
 import BookingRoute from './route/Booking.route.js';
+import AgentRoutes from './route/AgentRoute.js';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/user',userRoutes);
 app.use('/api/turf', TurfRoute);
 app.use('/api/booking', BookingRoute);
+app.use('/api/agent',AgentRoutes);
+
 
 mongoose.connect(process.env.MONGO_URI, {   
     useNewUrlParser: true,

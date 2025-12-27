@@ -17,14 +17,29 @@ export default function PlayGridAssistant() {
     setInput("");
     setLoading(true);
 
-    // TEMP: fake agent response (replace with backend later)
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:4000/api/agent/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
+
+      const data = await response.json();
       setMessages(prev => [
         ...prev,
-        { role: "assistant", text: "Searching turfs for you... ⚽" }
+        { role: "assistant", text: data.reply }
       ]);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessages(prev => [
+        ...prev,
+        { role: "assistant", text: "Sorry, something went wrong. Please try again." }
+      ]);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
