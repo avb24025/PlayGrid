@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiRobot2Fill } from "react-icons/ri";
 
 export default function PlayGridAssistant() {
   const [messages, setMessages] = useState([
-    { role: "assistant", text: "Hi 👋 I’m PlayGrid Assistant. What would you like to book today?" }
+    { role: "assistant", text: "Hi 👋 I'm PlayGrid Assistant. What would you like to book today?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [sessionId, setSessionId] = useState("");
+
+  useEffect(() => {
+    // Generate unique session ID when component is rendered
+    const uniqueSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setSessionId(uniqueSessionId);
+  }, []);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -23,7 +30,7 @@ export default function PlayGridAssistant() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: input, sessionId }),
       });
 
       const data = await response.json();

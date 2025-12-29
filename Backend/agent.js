@@ -17,13 +17,15 @@ const graph = new StateGraph({ channels: initialState });
 graph.addNode("detectIntent", detectIntent);
 graph.addNode("searchTurfs", searchTurfs);
 graph.addNode("generalAnswer", generalAnswer);
-// graph.addNode("selectTurf", selectTurf);
+graph.addNode("selectTurf", selectTurf);
 // graph.addNode("checkAvailability", checkAvailability);
-// graph.addNode("selectSlot", selectSlot);
+graph.addNode("selectSlot", selectSlot);
 // graph.addNode("confirmBooking", confirmBooking);
 // graph.addNode("createBooking", createBooking);
 // graph.addNode("initiatePayment", initiatePayment);
 
 graph.addEdge(START, "detectIntent");
 graph.addConditionalEdges("detectIntent", routeByIntent);
+graph.addEdge("selectTurf", "selectSlot");
+
 export const playgridAgent = graph.compile();
