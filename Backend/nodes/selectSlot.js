@@ -43,7 +43,7 @@ export async function selectSlot(state) {
           ...state.messages,
           {
             role: "assistant",
-            content: "There are no booked slots yet. Please select a date and time.",
+            content: "There are no booked slots yet. All slots are available.",
           },
         ],
       };

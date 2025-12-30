@@ -13,6 +13,13 @@ export async function selectTurf(state){
     }
     return {
         ...state,
+         messages: [
+      ...state.messages,    
+        {
+            role: "assistant",
+            content: "You have selected turf "+state.filters.turfName+".",
+        },
+    ],
     selectedTurf: state.filters.turfName,
     };
 
