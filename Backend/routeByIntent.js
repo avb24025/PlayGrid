@@ -5,18 +5,18 @@ export function routeByIntent(state){
     case "select_turf":
       return "selectTurf";
     case "Book":
-      return "Book";
+      return "BookTurf";
     case "select_slot":
       return "selectSlot";
     case "confirm_booking":
       return "confirmBooking";
     case "Check_availability":
-      return "Check";
+      return "CheckSlot";
     case "payment":
       return "initiatePayment";
     case "general_question":
       return "generalAnswer";
     default:
-      return "detectIntent";
+      return "__end__"; 
   }
 }
