@@ -20,7 +20,7 @@ graph.addNode("generalAnswer", generalAnswer);
 graph.addNode("selectTurf", selectTurf);
 graph.addNode("Book",selectTurf);
 graph.addNode("Check",selectTurf);
-graph.addNode("checkAvailability", checkAvailability);
+// graph.addNode("checkAvailability", checkAvailability);
 graph.addNode("selectSlot", selectSlot);
 // graph.addNode("confirmBooking", confirmBooking);
 // graph.addNode("createBooking", createBooking);
@@ -28,8 +28,8 @@ graph.addNode("selectSlot", selectSlot);
 
 graph.addEdge(START, "detectIntent");
 graph.addConditionalEdges("detectIntent", routeByIntent);
-graph.addEdge("Check","selectSlot");
-graph.addEdge("Book","selectSlot");
+// graph.addEdge("Check","selectSlot");
+// graph.addEdge("Book","selectSlot");
 // graph.addEdge("selectTurf", "checkAvailability");
 
 export const playgridAgent = graph.compile();

@@ -33,7 +33,7 @@ Allowed intents (choose exactly one):
 - select_turf
   → User is choosing or confirming a specific turf from a previously shown list.
 
-- book
+- Book
   → User clearly wants to book a turf by specifying date, time, or confirming the booking action.
 
 - payment
