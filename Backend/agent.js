@@ -23,13 +23,14 @@ graph.addNode("CheckSlot",selectTurf);
 // graph.addNode("checkAvailability", checkAvailability);
 graph.addNode("selectSlot", selectSlot);
 // graph.addNode("confirmBooking", confirmBooking);
-// graph.addNode("createBooking", createBooking);
+graph.addNode("createBooking", createBooking);
 // graph.addNode("initiatePayment", initiatePayment);
 
 graph.addEdge(START, "detectIntent");
 graph.addConditionalEdges("detectIntent", routeByIntent);
 graph.addEdge("CheckSlot","selectSlot");
 graph.addEdge("BookTurf","selectSlot");
+graph.addEdge("selectSlot", "createBooking");
 // graph.addEdge("selectTurf", "checkAvailability");
 
 export const playgridAgent = graph.compile();

@@ -1,4 +1,5 @@
 export const initialState ={
+  email:null,
   messages: [],
   intent: null,
   filters: {},
