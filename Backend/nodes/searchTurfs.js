@@ -1,6 +1,7 @@
 import Turf from "../model/Turf.model.js";
 
 export async function searchTurfs(state) {
+  console.log("serachTurfs is running...");
   try {
     const {
       location,

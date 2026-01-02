@@ -28,8 +28,8 @@ graph.addNode("selectSlot", selectSlot);
 
 graph.addEdge(START, "detectIntent");
 graph.addConditionalEdges("detectIntent", routeByIntent);
-// graph.addEdge("Check","selectSlot");
-// graph.addEdge("Book","selectSlot");
+graph.addEdge("CheckSlot","selectSlot");
+graph.addEdge("BookTurf","selectSlot");
 // graph.addEdge("selectTurf", "checkAvailability");
 
 export const playgridAgent = graph.compile();

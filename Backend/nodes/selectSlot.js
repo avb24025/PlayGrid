@@ -1,6 +1,7 @@
 import Turf from "../model/Turf.model.js";
 
 export async function selectSlot(state) {
+  console.log("selectSlot is running...");
   const { date, startTime, endTime } = state.filters;
   const turfName = state.selectedTurf;
   if(!turfName){
@@ -110,7 +111,7 @@ export async function selectSlot(state) {
       ...state.messages,
       {
         role: "assistant",
-        content: `✅ Slot available!\n\n${date} from ${startTime} to ${endTime}\n\nDo you want to confirm the booking?`,
+        content: `✅ Slot available!\n\n${date} from ${startTime} to ${endTime}\n\n`,
       },
     ],
   };

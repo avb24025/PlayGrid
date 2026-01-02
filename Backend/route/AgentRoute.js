@@ -13,8 +13,7 @@ router.post("/chat", async (req, res) => {
     return res.status(400).json({ error: "sessionId required" });
   }
 
-  const prevState =
-    sessionCache.get(sessionId) ?? structuredClone(initialState);
+  const prevState =initialState
 
   const inputState = {
     ...prevState,
@@ -23,11 +22,12 @@ router.post("/chat", async (req, res) => {
       { role: "user", content: message },
     ],
   };
-
+  
+  console.log("Input state to agent:", inputState);
   const result = await playgridAgent.invoke(inputState);
   console.log(result.messages.at(-1).content);
 
-  sessionCache.set(sessionId, result);
+  // sessionCache.set(sessionId, result);
   res.json({
     reply: result.messages.at(-1).content,
   });

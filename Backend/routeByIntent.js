@@ -6,10 +6,14 @@ export function routeByIntent(state){
       return "selectTurf";
     case "Book":
       return "BookTurf";
+    case "book":
+      return "BookTurf";
     case "select_slot":
       return "selectSlot";
     case "confirm_booking":
       return "confirmBooking";
+    case "check_availability":
+      return "CheckSlot";
     case "Check_availability":
       return "CheckSlot";
     case "payment":

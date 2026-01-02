@@ -43,7 +43,7 @@ Allowed intents (choose exactly one):
   → User is asking for information, help, or explanations unrelated to booking flow.
 
 -Check_availability
-  → User wants to check if a specific turf is available for booking on a certain date and time.
+  → User wants to check if a specific turf is available for booking on a certain date and time...maintain the case sensitivity.
 
 
 Intent priority:

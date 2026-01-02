@@ -1,8 +1,18 @@
 export async function selectTurf(state) {
-
+  console.log("selecturf is running...")
   // If turf already selected earlier, do nothing
   if (state.selectedTurf) {
-    return state;
+    return {
+    ...state,
+    selectedTurf: state.filters.turfName,
+    messages: [
+      ...state.messages,
+      {
+        role: "assistant",
+        content: `You have selected the turf "${state.filters.turfName}".`,
+      },
+    ],
+  };
   }
 
   // If no turf specified yet
