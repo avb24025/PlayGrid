@@ -72,6 +72,8 @@ export async function selectSlot(state) {
 
   // 3️⃣ Check for slot conflict
   const hasConflict = bookedSlots.some((slot) => {
+    console.log("Checking slot:", slot);
+    console.log("Against:", { date, startTime, endTime });
     if (slot.date !== date) return false;
 
     return (
@@ -84,6 +86,7 @@ export async function selectSlot(state) {
   if (hasConflict) {
     return {
       ...state,
+      conflict:true,
       messages: [
         ...state.messages,
         {

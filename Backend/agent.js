@@ -20,7 +20,7 @@ graph.addNode("generalAnswer", generalAnswer);
 graph.addNode("selectTurf", selectTurf);
 graph.addNode("BookTurf",selectTurf);
 graph.addNode("CheckSlot",selectTurf);
-// graph.addNode("checkAvailability", checkAvailability);
+graph.addNode("checkAvailability", checkAvailability);
 graph.addNode("selectSlot", selectSlot);
 // graph.addNode("confirmBooking", confirmBooking);
 graph.addNode("createBooking", createBooking);
@@ -28,7 +28,7 @@ graph.addNode("createBooking", createBooking);
 
 graph.addEdge(START, "detectIntent");
 graph.addConditionalEdges("detectIntent", routeByIntent);
-graph.addEdge("CheckSlot","selectSlot");
+graph.addEdge("CheckSlot","checkAvailability");
 graph.addEdge("BookTurf","selectSlot");
 graph.addEdge("selectSlot", "createBooking");
 // graph.addEdge("selectTurf", "checkAvailability");

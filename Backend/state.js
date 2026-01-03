@@ -6,4 +6,5 @@ export const initialState ={
   selectedTurf: null,
   selectedSlot: null,
   bookingId: null,
+  conflict:false
 };

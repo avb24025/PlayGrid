@@ -1,22 +1,26 @@
 import Turf from "../model/Turf.model.js";
 
-export async function checkAvailability(state){
-  if(!state.selctrdTurf){
+export async function checkAvailability(state) {
+  console.log("checkAvailability is running...");
+  const { date, startTime, endTime } = state.filters;
+  const turfName = state.selectedTurf;
+  if(!turfName){
     return {
-      ...state,
-      messages: [
+        ...state,
+    messages: [
         ...state.messages,
         {
-          role: "assistant",
-          content: "No turf selected. Please select a turf first.",
+            role: "assistant",
+            content: "Please specify a turf name to select a slot.",
         },
-      ],
+    ],
     };
   }
 
-  const turf=await Turf.findOne({name:state.selectedTurf});
+  // 1️⃣ Fetch selected turf
+  const turf = await Turf.findOne({ name: turfName });
 
-  if(!turf){
+  if (!turf) {
     return {
       ...state,
       messages: [
@@ -29,22 +33,45 @@ export async function checkAvailability(state){
     };
   }
 
-  const {date,startTime,endTime}=state.filters;
-  if(!date || !startTime || !endTime){
+  const bookedSlots = turf.bookedSlots || [];
+
+  // 2️⃣ If date/time NOT provided → just list booked slots
+  if (!date || !startTime || !endTime) {
+    if (bookedSlots.length === 0) {
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            role: "assistant",
+            content: "There are no booked slots yet. All slots are available.",
+          },
+        ],
+      };
+    }
+
     return {
       ...state,
       messages: [
         ...state.messages,
         {
           role: "assistant",
-          content: "Please provide date, start time and end time to check availability.",
+          content:
+            "Here are the already booked slots:\n" +
+            bookedSlots
+              .map(
+                (s) =>
+                  `• ${s.date} from ${s.startTime} to ${s.endTime}`
+              )
+              .join("\n") +
+            `\n\nPlease choose a different slot.`,
         },
       ],
     };
-  } 
-  // Check availability
-   const bookedSlots = turf.bookedSlots || [];
-   const hasConflict = bookedSlots.some((slot) => {
+  }
+
+  // 3️⃣ Check for slot conflict
+  const hasConflict = bookedSlots.some((slot) => {
     if (slot.date !== date) return false;
 
     return (
@@ -84,11 +111,8 @@ export async function checkAvailability(state){
       ...state.messages,
       {
         role: "assistant",
-        content: `✅ Slot available!\n\n${date} from ${startTime} to ${endTime}\n\nDo you want to confirm the booking?`,
+        content: `✅ Slot available!\n\n${date} from ${startTime} to ${endTime}\n\n`,
       },
     ],
   };
-
 }
-
-  
